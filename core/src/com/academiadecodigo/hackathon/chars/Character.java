@@ -7,17 +7,21 @@ import java.util.Set;
 
 public abstract class Character {
 
-    private Integer id;
+    private Integer imageId;
     private String name;
     private Set<Tech> moves;
     private TechType fighterType;
 
-    public Integer getId() {
-        return id;
+    private int hpMax;
+    private int hp;
+
+
+    public Integer getImageId() {
+        return imageId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setImageId(Integer imageId) {
+        this.imageId = imageId;
     }
 
     public String getName() {
@@ -42,5 +46,21 @@ public abstract class Character {
 
     public void setFighterType(TechType fighterType) {
         this.fighterType = fighterType;
+    }
+
+    public int getHpMax() {
+        return hpMax;
+    }
+
+    public void setHpMax(int hpMax) {
+        this.hpMax = hpMax;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 }
