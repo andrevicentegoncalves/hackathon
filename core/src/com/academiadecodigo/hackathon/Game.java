@@ -1,11 +1,10 @@
 package com.academiadecodigo.hackathon;
 
+import com.academiadecodigo.hackathon.visuals.GameSound;
 import com.academiadecodigo.hackathon.visuals.TopDownCamera;
 import com.academiadecodigo.hackathon.world.Coord;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,6 +25,7 @@ public class Game extends ApplicationAdapter {
 	Sprite sprite;
 
 	TopDownCamera topDownCamera;
+	GameSound sound;
 
 	WorldLogic worldLogic;
 	boolean runWorldLogic;
@@ -60,6 +60,10 @@ public class Game extends ApplicationAdapter {
 		runWorldLogic = true;
 		worldLogic = new WorldLogic();
 		worldLogic.setPlayerPosition(playerPos);
+
+		sound = new GameSound();
+		//sound.gameMusic();
+		sound.battleMusic();
 
 	}
 
