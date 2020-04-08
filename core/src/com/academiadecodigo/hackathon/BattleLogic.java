@@ -29,7 +29,7 @@ public class BattleLogic {
 
     public void chooseEnemyAttack() {
         Set<Tech> moves = scenario.getEnemy().getMoves();
-        int rand = Utilities.roll(moves.size());
+        int rand = Utilities.roll(moves.size()) - 1; //This is because roll goes from 1 to Max
         scenario.setEnemyAttack((Attack) moves.toArray()[rand]); //WARNING: cast an attack, decide if Tech should replace Attack or vice-versa.
     }
 
