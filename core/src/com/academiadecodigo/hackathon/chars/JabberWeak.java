@@ -7,11 +7,11 @@ import com.academiadecodigo.hackathon.utilities.Utilities;
 
 import java.util.HashSet;
 
-public class JabberWeak extends Character {
+public class JabberWeak extends Person {
 
-    public static Character genWeakJabber() {
+    public static Person genWeakJabber() {
         int random = (int) Math.ceil(Math.random()*3);
-        Character c = new JabberWeak();
+        Person c = new JabberWeak();
         c.setHpMax(20);
         c.setHp(19);
         c.setFighterType(TechType.JAB);

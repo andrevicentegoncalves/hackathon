@@ -5,7 +5,7 @@ import com.academiadecodigo.hackathon.techs.TechType;
 
 import java.util.Set;
 
-public abstract class Character {
+public class Person {
 
     private Integer imageId;
     private String name;
@@ -63,4 +63,9 @@ public abstract class Character {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public boolean isAlive() {
+        return hp > 0;
+    }
+
 }
