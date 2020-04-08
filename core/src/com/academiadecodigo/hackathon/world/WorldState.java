@@ -2,6 +2,6 @@ package com.academiadecodigo.hackathon.world;
 
 import java.util.HashMap;
 
-public class World {
+public class WorldState {
     HashMap<String,GridArea> locations;
 }

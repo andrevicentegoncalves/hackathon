@@ -1,5 +1,7 @@
 package com.academiadecodigo.hackathon;
 
+import com.academiadecodigo.hackathon.visuals.TopDownCamera;
+import com.academiadecodigo.hackathon.world.Coord;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -14,7 +16,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-public class Game extends ApplicationAdapter implements InputProcessor {
+public class Game extends ApplicationAdapter {
 	Texture img;
 	TiledMap tiledMap;
 	OrthographicCamera camera;
@@ -22,6 +24,14 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch sb;
 	Texture player;
 	Sprite sprite;
+
+	TopDownCamera topDownCamera;
+
+	WorldLogic worldLogic;
+	boolean runWorldLogic;
+
+	BattleLogic battleLogic;
+	boolean runBattleLogic;
 
 	@Override
 	public void create () {
@@ -32,13 +42,25 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
 		camera.update();
-		tiledMap = new TmxMapLoader().load("map/map_32.tmx");
+		tiledMap = new TmxMapLoader().load("sprites/map.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		Gdx.input.setInputProcessor(this);
+
+		topDownCamera = new TopDownCamera(camera, tiledMap);
+		Gdx.input.setInputProcessor(topDownCamera);
 
 		sb = new SpriteBatch();
 		player = new Texture(Gdx.files.internal("player.png"));
 		sprite = new Sprite(player);
+
+		sprite.translate(320, 160);
+		Coord playerPos = new Coord(10,5);
+
+
+
+		runWorldLogic = true;
+		worldLogic = new WorldLogic();
+		worldLogic.setPlayerPosition(playerPos);
+
 	}
 
 	@Override
@@ -51,7 +73,6 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
 
-		//sb.setProjectionMatrix(camera.combined); //Coloca o boneco onde clicarmos com o rato
 
 		sb.begin();
 		sprite.draw(sb);
@@ -62,59 +83,5 @@ public class Game extends ApplicationAdapter implements InputProcessor {
 	public void dispose () {
 	}
 
-	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
 
-	@Override
-	public boolean keyUp(int keycode) {
-		if(keycode == Input.Keys.LEFT)
-			camera.translate(-32,0);
-		if(keycode == Input.Keys.RIGHT)
-			camera.translate(32,0);
-		if(keycode == Input.Keys.UP)
-			camera.translate(0,32);
-		if(keycode == Input.Keys.DOWN)
-			camera.translate(0,-32);
-		if(keycode == Input.Keys.NUM_1)
-			tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-		if(keycode == Input.Keys.NUM_2)
-			tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		/*Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
-		Vector3 position = camera.unproject(clickCoordinates);
-		sprite.setPosition(position.x, position.y);
-		return true;*/
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		return false;
-	}
 }
