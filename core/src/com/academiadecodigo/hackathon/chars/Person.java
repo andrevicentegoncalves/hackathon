@@ -2,19 +2,31 @@ package com.academiadecodigo.hackathon.chars;
 
 import com.academiadecodigo.hackathon.techs.Tech;
 import com.academiadecodigo.hackathon.techs.TechType;
+import com.academiadecodigo.hackathon.techs.general.Attack;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Person {
 
     private Integer imageId;
     private String name;
-    private Set<Tech> moves;
+    private ArrayList<Tech> moves;
     private TechType fighterType;
 
     private int hpMax;
     private int hp;
 
+    public Person() {
+        imageId = 0;
+        name = "Generics";
+        moves = new ArrayList<>();
+        moves.add(Attack.createAttack("Bland", 10, 0, TechType.KI) );
+        fighterType = TechType.KI;
+
+        hpMax = 30;
+        hp = hpMax;
+
+    }
 
     public Integer getImageId() {
         return imageId;
@@ -32,12 +44,17 @@ public class Person {
         this.name = name;
     }
 
-    public Set<Tech> getMoves() {
+    public ArrayList<Tech> getMoves() {
         return moves;
     }
 
-    public void setMoves(Set<Tech> moves) {
+    public void setMoves(ArrayList<Tech> moves) {
         this.moves = moves;
+    }
+
+    public Tech getMove(int num) {
+        if (num < moves.size()) return moves.get(num);
+        else return moves.get(0);
     }
 
     public TechType getFighterType() {

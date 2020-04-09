@@ -1,6 +1,7 @@
 package com.academiadecodigo.hackathon.view;
 
 import com.academiadecodigo.hackathon.Game;
+import com.academiadecodigo.hackathon.WorldLogic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,12 +20,16 @@ public class GameView implements Screen {
     private Sprite sprite;
     private SpriteBatch sb;
 
-    public GameView(final Game game, OrthographicCamera camera, TiledMapRenderer tiledMapRenderer, Sprite sprite, SpriteBatch sb) {
+    private WorldLogic logic;
+
+    public GameView(final Game game, WorldLogic logic, OrthographicCamera camera, TiledMapRenderer tiledMapRenderer, Sprite sprite, SpriteBatch sb) {
         this.game = game;
         this.camera = camera;
         this.tiledMapRenderer = tiledMapRenderer;
         this.sprite = sprite;
         this.sb = sb;
+
+        this.logic = logic;
     }
 
     @Override

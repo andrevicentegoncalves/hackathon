@@ -1,5 +1,9 @@
 package com.academiadecodigo.hackathon;
 
+import com.academiadecodigo.hackathon.battle.Battle;
+import com.academiadecodigo.hackathon.chars.JabberWeak;
+import com.academiadecodigo.hackathon.chars.Person;
+import com.academiadecodigo.hackathon.chars.Protagonist;
 import com.academiadecodigo.hackathon.view.BattleView;
 import com.academiadecodigo.hackathon.view.GameView;
 import com.academiadecodigo.hackathon.utilities.GameSound;
@@ -75,18 +79,19 @@ public class Game extends ApplicationAdapter {
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
 
-		screenBattle = new BattleView(this, sb, font);
-		screenWorld = new GameView(this, camera,tiledMapRenderer,sprite,sb);
+		worldLogic = new WorldLogic(); //Summoned on walking around?
+		worldLogic.setPlayerPosition(playerPos);
+		battleLogic = new BattleLogic(new Battle(new Protagonist(), new JabberWeak())); //Summoned on combat
+
+		screenBattle = new BattleView(this, battleLogic, sb, font);
+		screenWorld = new GameView(this, worldLogic, camera,tiledMapRenderer,sprite,sb);
 
 		topDownCamera.setActiveOverworld(false);
 		topDownCamera.setActiveBattle(true);
 
-		worldLogic = new WorldLogic(); //Summoned on walking around?
-		worldLogic.setPlayerPosition(playerPos);
-		battleLogic = new BattleLogic(); //Summoned on combat
-
 		sound = new GameSound();
 		sound.gameMusic();
+
 
 		runWorldLogic = false;
 		runBattleLogic = true;
@@ -109,34 +114,6 @@ public class Game extends ApplicationAdapter {
 			sound.gameMusic();
 			sound.lowGameMusicVolume();
 
-			/*
-			Gdx.gl.glClearColor(1, 0, 0, 1);
-			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			camera.update();
-			tiledMapRenderer.setView(camera);
-			tiledMapRenderer.render();
-
-			sb.begin();
-			sprite.draw(sb);
-			sb.end();
-
-			setScreen(screenWorld);
-			activeScreen.render(1);
-			sound.stopBattleMusic();
-			sound.gameMusic();
-			sound.lowGameMusicVolume();
-
-			/*runWorldLogic = false;
-			runBattleLogic = true;
-
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			*/
-			//render();
 
 
 		}
@@ -149,6 +126,7 @@ public class Game extends ApplicationAdapter {
 			sound.stopGameMusic();
 			sound.battleMusic();
 			sound.lowBattleMusicVolume();
+
 			//runBattleLogic = false;
 			//runWorldLogic = true;
 

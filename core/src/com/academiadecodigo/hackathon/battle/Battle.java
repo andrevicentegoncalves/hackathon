@@ -17,6 +17,11 @@ public class Battle {
     private boolean victory = false;
     private boolean defeat = false;
 
+    public Battle(Person player, Person enemy) {
+        this.player = player;
+        this.enemy = enemy;
+    }
+
     public void resolveTurn() {
         if (player.isAlive()) {
             enemy.setHp((int) Math.max(0,

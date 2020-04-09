@@ -5,7 +5,9 @@ import com.academiadecodigo.hackathon.techs.TechType;
 import com.academiadecodigo.hackathon.techs.general.Attack;
 import com.academiadecodigo.hackathon.utilities.Utilities;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class JabberWeak extends Person {
 
@@ -16,7 +18,7 @@ public class JabberWeak extends Person {
         c.setHp(19);
         c.setFighterType(TechType.JAB);
         c.setName(Utilities.genNames());
-        c.setMoves(new HashSet<Tech>(4));
+        c.setMoves(new ArrayList<Tech>(4));
         switch (random) {
             case 1:
                 c.getMoves().add(Attack.createAttack("Weak Jab", 5, 0, TechType.JAB));
