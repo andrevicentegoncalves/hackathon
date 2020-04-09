@@ -2,13 +2,12 @@ package com.academiadecodigo.hackathon;
 
 import com.academiadecodigo.hackathon.view.BattleView;
 import com.academiadecodigo.hackathon.view.GameView;
-import com.academiadecodigo.hackathon.visuals.GameSound;
+import com.academiadecodigo.hackathon.utilities.GameSound;
 import com.academiadecodigo.hackathon.visuals.TopDownCamera;
 import com.academiadecodigo.hackathon.world.Coord;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -29,7 +28,10 @@ public class Game extends ApplicationAdapter {
 
 	private TopDownCamera topDownCamera;
 	private GameSound sound;
-	Screen screen;
+
+	private Screen screenWorld;
+	private Screen screenBattle;
+	private Screen activeScreen;
 
 	private WorldLogic worldLogic;
 	private boolean runWorldLogic;
@@ -47,7 +49,7 @@ public class Game extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
 		camera.update();
-		tiledMap = new TmxMapLoader().load("sprites alt/map.tmx");
+		tiledMap = new TmxMapLoader().load("sprites/map.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 		topDownCamera = new TopDownCamera(this, camera, tiledMap);
@@ -60,11 +62,15 @@ public class Game extends ApplicationAdapter {
 		sprite.translate(320, 160);
 		Coord playerPos = new Coord(10,5);
 
+		screenBattle = new BattleView(this);
+		screenWorld = new GameView(this, camera,tiledMapRenderer,sprite,sb);
 
-		topDownCamera.setActiveOverworld(true);
-		runWorldLogic = true;
-		worldLogic = new WorldLogic();
+		topDownCamera.setActiveOverworld(false);
+		topDownCamera.setActiveBattle(true);
+
+		worldLogic = new WorldLogic(); //Summoned on walking around?
 		worldLogic.setPlayerPosition(playerPos);
+		battleLogic = new BattleLogic(); //Summoned on combat
 
 		sound = new GameSound();
 		sound.gameMusic();
@@ -72,30 +78,20 @@ public class Game extends ApplicationAdapter {
 		runWorldLogic = false;
 		runBattleLogic = true;
 
+		//swapLogic();
 
 	}
 
 	@Override
 	public void render () {
 
-		if(runWorldLogic) {
-			/*
-			Gdx.gl.glClearColor(1, 0, 0, 1);
-			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			camera.update();
-			tiledMapRenderer.setView(camera);
-			tiledMapRenderer.render();
+		if(runWorldLogic) { //Doing world stuff!
 
-			sb.begin();
-			sprite.draw(sb);
-			sb.end();
-
-			 */
-			setScreen(new GameView(this, camera,tiledMapRenderer,sprite,sb));
-			screen.render(1);
+			setScreen(screenWorld);
+			activeScreen.render(1);
 			sound.stopBattleMusic();
 			sound.gameMusic();
+			sound.lowGameMusicVolume();
 
 			/*runWorldLogic = false;
 			runBattleLogic = true;
@@ -105,25 +101,32 @@ public class Game extends ApplicationAdapter {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			render();*/
+			*/
+			//render();
+
+
 		}
 
-		if(runBattleLogic) {
-			setScreen(new BattleView(this));
-			screen.render(1);
+		if(runBattleLogic) { //Doing battle stuff!
+
+			setScreen(screenBattle);
+			activeScreen.render(1);
+			//activeScreen.render(1);
 			sound.stopGameMusic();
 			sound.battleMusic();
+			sound.lowBattleMusicVolume();
+			//runBattleLogic = false;
+			//runWorldLogic = true;
 
-			runBattleLogic = false;
-			runWorldLogic = true;
-
+			/*
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			 */
 
-			render();
+			//render();
 		}
 
 	}
@@ -135,24 +138,30 @@ public class Game extends ApplicationAdapter {
 
 	public void triggerBattle() {
 		topDownCamera.setActiveOverworld(false);
-		runWorldLogic = false;
 		topDownCamera.setActiveBattle(true);
-		runBattleLogic = true;
+
+		swapLogic();
 		//Do the switch thing here
+		setScreen(screenBattle);
 
 	}
 
 	public void finishBattle() {
 		topDownCamera.setActiveOverworld(true);
-		runWorldLogic = true;
 		topDownCamera.setActiveBattle(false);
-		runBattleLogic = false;
-		//Do the switch thing here
 
+		swapLogic();
+		//Do the switch thing here
+		setScreen(screenWorld);
 	}
 
 	public void setScreen(Screen screen) {
-		this.screen = screen;
+		this.activeScreen = screen;
+	}
+
+	public void swapLogic() {
+		runWorldLogic = !runWorldLogic;
+		runBattleLogic = !runBattleLogic;
 	}
 
 }

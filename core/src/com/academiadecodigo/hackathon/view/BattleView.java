@@ -10,26 +10,26 @@ import com.badlogic.gdx.math.Rectangle;
 public class BattleView implements Screen {
 
     private final Game game;
-    Texture img;
-    Rectangle player;
+    private Texture img;
+    private Rectangle player;
 
     public BattleView(final Game game) {
         this.game = game;
+        img = new Texture(Gdx.files.internal("background.jpg"));
     }
 
     @Override
     public void show() {
 
-        img = new Texture(Gdx.files.internal("background.jpg"));
         player = new Rectangle();
-
 
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0.8f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
     }
 
     @Override

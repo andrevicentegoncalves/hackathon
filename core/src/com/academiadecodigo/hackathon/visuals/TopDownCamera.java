@@ -18,13 +18,15 @@ public class TopDownCamera implements InputProcessor {
     private boolean activeBattle;
 
     public TopDownCamera(Game game, OrthographicCamera camera, TiledMap tiledMap) {
+        this.game = game;
         this.camera = camera;
         this.tiledMap = tiledMap;
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (activeOverworld) { //Key inputs for walking in the gridworld here
+        //Overworld keys active
+        if (isActiveOverworld()) { //Key inputs for walking in the gridworld here
             if (keycode == Input.Keys.LEFT)
                 camera.translate(-32, 0);
             if (keycode == Input.Keys.RIGHT)
@@ -40,10 +42,14 @@ public class TopDownCamera implements InputProcessor {
             if (keycode == Input.Keys.X)
                 game.triggerBattle(); //Initiates combat mode
 
-
+            return true;
         }
-        if (activeBattle) { //Key inputs for battle view go here.
+        //Battle keys active
+        if (isActiveBattle()) { //Key inputs for battle view go here.
+            if (keycode == Input.Keys.X)
+                game.finishBattle();
 
+            return true;
         }
         return false;
     }

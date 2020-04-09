@@ -1,4 +1,4 @@
-package com.academiadecodigo.hackathon.visuals;
+package com.academiadecodigo.hackathon.utilities;
 
 
 import com.badlogic.gdx.Gdx;
@@ -29,11 +29,11 @@ public class GameSound {
     }
 
     public void lowGameMusicVolume(){
-        gameMusic.setVolume(0.33f);
+        gameMusic.setVolume(0.1f);
     }
 
     public void mediumGameMusicVolume(){
-        gameMusic.setVolume(0.66f);
+        gameMusic.setVolume(0.6f);
     }
 
     public void battleMusic(){
@@ -50,11 +50,11 @@ public class GameSound {
     }
 
     public void lowBattleMusicVolume(){
-        battleMusic.setVolume(0.33f);
+        battleMusic.setVolume(0.2f);
     }
 
     public void mediumBattleMusicVolume(){
-        battleMusic.setVolume(0.66f);
+        battleMusic.setVolume(0.6f);
     }
 
 }
