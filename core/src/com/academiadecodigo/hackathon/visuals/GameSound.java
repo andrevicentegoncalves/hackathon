@@ -3,21 +3,21 @@ package com.academiadecodigo.hackathon.visuals;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+
 public class GameSound {
 
     private Music gameMusic;
-    private Music battleSound;
+    private Music battleMusic;
 
     public GameSound(){
         gameMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/bestFriend8bit.wav"));
-        battleSound = Gdx.audio.newMusic(Gdx.files.internal("sound/8bit Chiptune Eye of the Tiger.wav"));
+        battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/8bit Chiptune Eye of the Tiger.wav"));
 
     }
 
     public void gameMusic(){
-        gameMusic.setLooping(true);
         gameMusic.play();
+        gameMusic.setLooping(true);
     }
 
     public void pauseGameMusic(){
@@ -37,20 +37,24 @@ public class GameSound {
     }
 
     public void battleMusic(){
-        battleSound.play();
-        battleSound.setLooping(true);
+        battleMusic.play();
+        battleMusic.setLooping(true);
+    }
+
+    public void stopBattleMusic(){
+        battleMusic.stop();
     }
 
     public void pauseBattleMusic(){
-        battleSound.pause();
+        battleMusic.pause();
     }
 
     public void lowBattleMusicVolume(){
-        battleSound.setVolume(0.33f);
+        battleMusic.setVolume(0.33f);
     }
 
     public void mediumBattleMusicVolume(){
-        battleSound.setVolume(0.66f);
+        battleMusic.setVolume(0.66f);
     }
 
 }
