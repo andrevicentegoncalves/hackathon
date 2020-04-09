@@ -1,5 +1,6 @@
 package com.academiadecodigo.hackathon.visuals;
 
+import com.academiadecodigo.hackathon.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,32 +9,42 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 
 public class TopDownCamera implements InputProcessor {
 
+    private Game game;
+
     private OrthographicCamera camera;
     private TiledMap tiledMap;
 
     private boolean activeOverworld;
     private boolean activeBattle;
 
-    public TopDownCamera(OrthographicCamera camera, TiledMap tiledMap) {
+    public TopDownCamera(Game game, OrthographicCamera camera, TiledMap tiledMap) {
         this.camera = camera;
         this.tiledMap = tiledMap;
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (!activeOverworld) return false; //
-        if(keycode == Input.Keys.LEFT)
-            camera.translate(-32,0);
-        if(keycode == Input.Keys.RIGHT)
-            camera.translate(32,0);
-        if(keycode == Input.Keys.UP)
-            camera.translate(0,32);
-        if(keycode == Input.Keys.DOWN)
-            camera.translate(0,-32);
-        if(keycode == Input.Keys.NUM_1)
-            tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-        if(keycode == Input.Keys.NUM_2)
-            tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+        if (activeOverworld) { //Key inputs for walking in the gridworld here
+            if (keycode == Input.Keys.LEFT)
+                camera.translate(-32, 0);
+            if (keycode == Input.Keys.RIGHT)
+                camera.translate(32, 0);
+            if (keycode == Input.Keys.UP)
+                camera.translate(0, 32);
+            if (keycode == Input.Keys.DOWN)
+                camera.translate(0, -32);
+            if (keycode == Input.Keys.NUM_1)
+                tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
+            if (keycode == Input.Keys.NUM_2)
+                tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+            if (keycode == Input.Keys.X)
+                game.triggerBattle(); //Initiates combat mode
+
+
+        }
+        if (activeBattle) { //Key inputs for battle view go here.
+
+        }
         return false;
     }
 

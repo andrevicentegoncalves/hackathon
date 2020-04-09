@@ -16,22 +16,22 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class Game extends ApplicationAdapter {
-	Texture img;
-	TiledMap tiledMap;
-	OrthographicCamera camera;
-	TiledMapRenderer tiledMapRenderer;
-	SpriteBatch sb;
-	Texture player;
-	Sprite sprite;
+	private Texture img;
+	private TiledMap tiledMap;
+	private OrthographicCamera camera;
+	private TiledMapRenderer tiledMapRenderer;
+	private SpriteBatch sb;
+	private Texture player;
+	private Sprite sprite;
 
-	TopDownCamera topDownCamera;
-	GameSound sound;
+	private TopDownCamera topDownCamera;
+	private GameSound sound;
 
-	WorldLogic worldLogic;
-	boolean runWorldLogic;
+	private WorldLogic worldLogic;
+	private boolean runWorldLogic;
 
-	BattleLogic battleLogic;
-	boolean runBattleLogic;
+	private BattleLogic battleLogic;
+	private boolean runBattleLogic;
 
 	@Override
 	public void create () {
@@ -42,10 +42,10 @@ public class Game extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
 		camera.update();
-		tiledMap = new TmxMapLoader().load("sprites/map.tmx");
+		tiledMap = new TmxMapLoader().load("sprites alt/map.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-		topDownCamera = new TopDownCamera(camera, tiledMap);
+		topDownCamera = new TopDownCamera(this, camera, tiledMap);
 		Gdx.input.setInputProcessor(topDownCamera);
 
 		sb = new SpriteBatch();
@@ -70,7 +70,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
@@ -87,5 +87,22 @@ public class Game extends ApplicationAdapter {
 	public void dispose () {
 	}
 
+	public void triggerBattle() {
+		topDownCamera.setActiveOverworld(false);
+		runWorldLogic = false;
+		topDownCamera.setActiveBattle(true);
+		runBattleLogic = true;
+		//Do the switch thing here
+
+	}
+
+	public void finishBattle() {
+		topDownCamera.setActiveOverworld(true);
+		runWorldLogic = true;
+		topDownCamera.setActiveBattle(false);
+		runBattleLogic = false;
+		//Do the switch thing here
+
+	}
 
 }
