@@ -11,6 +11,9 @@ public class TopDownCamera implements InputProcessor {
     private OrthographicCamera camera;
     private TiledMap tiledMap;
 
+    private boolean activeOverworld;
+    private boolean activeBattle;
+
     public TopDownCamera(OrthographicCamera camera, TiledMap tiledMap) {
         this.camera = camera;
         this.tiledMap = tiledMap;
@@ -18,6 +21,7 @@ public class TopDownCamera implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (!activeOverworld) return false; //
         if(keycode == Input.Keys.LEFT)
             camera.translate(-32,0);
         if(keycode == Input.Keys.RIGHT)
@@ -68,4 +72,19 @@ public class TopDownCamera implements InputProcessor {
         return false;
     }
 
+    public boolean isActiveOverworld() {
+        return activeOverworld;
+    }
+
+    public void setActiveOverworld(boolean activeOverworld) {
+        this.activeOverworld = activeOverworld;
+    }
+
+    public boolean isActiveBattle() {
+        return activeBattle;
+    }
+
+    public void setActiveBattle(boolean activeBattle) {
+        this.activeBattle = activeBattle;
+    }
 }

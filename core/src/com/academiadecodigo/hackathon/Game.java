@@ -56,7 +56,7 @@ public class Game extends ApplicationAdapter {
 		Coord playerPos = new Coord(10,5);
 
 
-
+		topDownCamera.setActiveOverworld(true);
 		runWorldLogic = true;
 		worldLogic = new WorldLogic();
 		worldLogic.setPlayerPosition(playerPos);
