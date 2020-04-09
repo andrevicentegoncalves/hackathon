@@ -8,15 +8,22 @@ import com.academiadecodigo.hackathon.world.Coord;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class Game extends ApplicationAdapter {
 	Texture img;
@@ -36,6 +43,8 @@ public class Game extends ApplicationAdapter {
 
 	BattleLogic battleLogic;
 	boolean runBattleLogic;
+
+	BitmapFont font;
 
 
 	@Override
@@ -72,12 +81,14 @@ public class Game extends ApplicationAdapter {
 		runWorldLogic = false;
 		runBattleLogic = true;
 
+		font = new BitmapFont();
+		font.setColor(Color.BLACK);
+
 
 	}
 
 	@Override
 	public void render () {
-
 		if(runWorldLogic) {
 			/*
 			Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -109,21 +120,11 @@ public class Game extends ApplicationAdapter {
 		}
 
 		if(runBattleLogic) {
-			setScreen(new BattleView(this));
+			setScreen(new BattleView(this, sb, font));
 			screen.render(1);
 			sound.stopGameMusic();
 			sound.battleMusic();
 
-			runBattleLogic = false;
-			runWorldLogic = true;
-
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			render();
 		}
 
 
