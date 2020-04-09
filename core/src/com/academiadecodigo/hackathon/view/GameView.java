@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 public class GameView implements Screen {
 
@@ -38,6 +40,10 @@ public class GameView implements Screen {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
+        /*Dialog dialog = new Dialog("teste", new Window.WindowStyle());
+        dialog.text("You can't fight me now!");*/
+
 
         sb.begin();
         sprite.draw(sb);

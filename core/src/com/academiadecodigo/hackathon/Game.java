@@ -8,14 +8,22 @@ import com.academiadecodigo.hackathon.world.Coord;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class Game extends ApplicationAdapter {
 	private Texture img;
@@ -38,6 +46,8 @@ public class Game extends ApplicationAdapter {
 
 	private BattleLogic battleLogic;
 	private boolean runBattleLogic;
+
+	BitmapFont font;
 
 
 	@Override
@@ -62,7 +72,10 @@ public class Game extends ApplicationAdapter {
 		sprite.translate(320, 160);
 		Coord playerPos = new Coord(10,5);
 
-		screenBattle = new BattleView(this);
+		font = new BitmapFont();
+		font.setColor(Color.BLACK);
+
+		screenBattle = new BattleView(this, sb, font);
 		screenWorld = new GameView(this, camera,tiledMapRenderer,sprite,sb);
 
 		topDownCamera.setActiveOverworld(false);
@@ -80,12 +93,33 @@ public class Game extends ApplicationAdapter {
 
 		//swapLogic();
 
+
+
 	}
 
 	@Override
 	public void render () {
 
-		if(runWorldLogic) { //Doing world stuff!
+		if(runWorldLogic) {
+
+			setScreen(screenWorld);
+			activeScreen.render(1);
+			//activeScreen.render(1);
+			sound.stopBattleMusic();
+			sound.gameMusic();
+			sound.lowGameMusicVolume();
+
+			/*
+			Gdx.gl.glClearColor(1, 0, 0, 1);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			camera.update();
+			tiledMapRenderer.setView(camera);
+			tiledMapRenderer.render();
+
+			sb.begin();
+			sprite.draw(sb);
+			sb.end();
 
 			setScreen(screenWorld);
 			activeScreen.render(1);
@@ -118,15 +152,6 @@ public class Game extends ApplicationAdapter {
 			//runBattleLogic = false;
 			//runWorldLogic = true;
 
-			/*
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			 */
-
-			//render();
 		}
 
 	}

@@ -57,4 +57,13 @@ public class GameSound {
         battleMusic.setVolume(0.6f);
     }
 
+    public void muteGameMusicVolume() {
+        gameMusic.setVolume(0);
+    }
+
+    public void muteBattleMusicVolume() {
+        battleMusic.setVolume(0);
+    }
+
+
 }
