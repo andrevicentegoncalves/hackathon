@@ -51,7 +51,7 @@ public class Game extends ApplicationAdapter {
 	private BattleLogic battleLogic;
 	private boolean runBattleLogic;
 
-	BitmapFont font;
+	private BitmapFont font;
 
 
 	@Override
@@ -81,23 +81,24 @@ public class Game extends ApplicationAdapter {
 
 		worldLogic = new WorldLogic(); //Summoned on walking around?
 		worldLogic.setPlayerPosition(playerPos);
-		battleLogic = new BattleLogic(new Battle(new Protagonist(), new JabberWeak()) , this); //Summoned on combat
+		battleLogic = new BattleLogic(new Battle(new Protagonist(), JabberWeak.genWeakJabber()) , this); //Summoned on combat
 
 		screenBattle = new BattleView(this, battleLogic, sb, font);
 		screenWorld = new GameView(this, worldLogic, camera,tiledMapRenderer,sprite,sb);
-
-		topDownCamera.setActiveOverworld(false);
-		topDownCamera.setActiveBattle(true);
 
 		sound = new GameSound();
 		sound.gameMusic();
 
 
+		topDownCamera.setActiveOverworld(true);
+		topDownCamera.setActiveBattle(false);
 		runWorldLogic = false;
 		runBattleLogic = true;
+		swapLogic();
 
-		//swapLogic();
-
+		camera.translate(258,258);
+		playerPos.setX(playerPos.getX()+8);
+		playerPos.setY(playerPos.getY()+8);
 
 
 	}
@@ -153,7 +154,8 @@ public class Game extends ApplicationAdapter {
 		topDownCamera.setActiveOverworld(true);
 		topDownCamera.setActiveBattle(false);
 
-		battleLogic.getScenario().getPlayer().setHp(35);
+		battleLogic.getScenario().getPlayer().setHpMax(35);
+		battleLogic.getScenario().getPlayer().setHp(battleLogic.getScenario().getPlayer().getHpMax());
 		battleLogic.getScenario().setEnemy(JabberWeak.genWeakJabber());
 
 		swapLogic();

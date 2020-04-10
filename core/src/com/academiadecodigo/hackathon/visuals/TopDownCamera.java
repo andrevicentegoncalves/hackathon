@@ -27,18 +27,20 @@ public class TopDownCamera implements InputProcessor {
     public boolean keyDown(int keycode) {
         //Overworld keys active
         if (isActiveOverworld()) { //Key inputs for walking in the gridworld here
-            if (keycode == Input.Keys.LEFT)
+            if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
                 camera.translate(-32, 0);
-            if (keycode == Input.Keys.RIGHT)
+            if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
                 camera.translate(32, 0);
-            if (keycode == Input.Keys.UP)
+            if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
                 camera.translate(0, 32);
-            if (keycode == Input.Keys.DOWN)
+            if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
                 camera.translate(0, -32);
+            /*
             if (keycode == Input.Keys.NUM_1)
                 tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
             if (keycode == Input.Keys.NUM_2)
                 tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+             */
             if (keycode == Input.Keys.X)
                 game.triggerBattle(); //Initiates combat mode
 

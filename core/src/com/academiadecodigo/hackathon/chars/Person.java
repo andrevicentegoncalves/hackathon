@@ -20,7 +20,7 @@ public class Person {
         imageId = 0;
         name = "Generics";
         moves = new ArrayList<>();
-        moves.add(Attack.createAttack("Bland", 10, 0, TechType.KI) );
+        moves.add(Attack.createAttack("Brag About Cellphone", 10, 0, TechType.SOUND) );
         fighterType = TechType.KI;
 
         hpMax = 30;

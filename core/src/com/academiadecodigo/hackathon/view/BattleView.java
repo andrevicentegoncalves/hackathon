@@ -144,6 +144,23 @@ public class BattleView implements Screen {
         sp.rect(3,303,634,54);
         sp.end();
 
+        if (game.getBattleLogic().getScenario().getPlayer().getHp() == game.getBattleLogic().getScenario().getPlayer().getHpMax()) {
+            sb.begin();
+            font.draw(
+                    sb,  String.valueOf("An old " + logic.getScenario().getEnemy().getName() + " appeared!"),20,334
+            );
+            sb.end();
+        }
+        else {
+            sb.begin();
+            font.draw(
+                    sb,  String.valueOf("You used " + logic.getScenario().getPlayerAttack().getName() + "! A "+logic.getScenario().getPlayerAttack().getTechType().name() +" type move!"),20,342
+            );
+            font.draw(
+                    sb,  String.valueOf( (logic.getScenario().getEnemy().getHp() == 0 ? logic.getScenario().getEnemy().getName() + " retreats!": logic.getScenario().getEnemy().getName()+" used " + logic.getScenario().getEnemyAttack().getName() + "! A "+logic.getScenario().getEnemyAttack().getTechType().name() +" type move!")),20,322
+            );
+            sb.end();
+        }
 
 
 
