@@ -112,7 +112,7 @@ public class BattleView implements Screen {
 
         sb.begin();
         font.draw(
-                sb,  String.valueOf(logic.getScenario().getPlayer().getHp()),10,92
+                sb,  String.valueOf("HP: " + logic.getScenario().getPlayer().getHp()),10,92
         );
         sb.end();
 
@@ -129,7 +129,7 @@ public class BattleView implements Screen {
 
         sb.begin();
         font.draw(
-                sb,  String.valueOf(logic.getScenario().getEnemy().getHp()),490,92
+                sb,  String.valueOf("HP: " + logic.getScenario().getEnemy().getHp()),490,92
         );
         sb.end();
 

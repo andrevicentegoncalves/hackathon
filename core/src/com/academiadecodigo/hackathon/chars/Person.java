@@ -10,7 +10,7 @@ public class Person {
 
     private Integer imageId;
     private String name;
-    private ArrayList<Tech> moves;
+    private ArrayList<Attack> moves;
     private TechType fighterType;
 
     private int hpMax;
@@ -44,15 +44,15 @@ public class Person {
         this.name = name;
     }
 
-    public ArrayList<Tech> getMoves() {
+    public ArrayList<Attack> getMoves() {
         return moves;
     }
 
-    public void setMoves(ArrayList<Tech> moves) {
+    public void setMoves(ArrayList<Attack> moves) {
         this.moves = moves;
     }
 
-    public Tech getMove(int num) {
+    public Attack getMove(int num) {
         if (num < moves.size()) return moves.get(num);
         else return moves.get(0);
     }
@@ -75,6 +75,10 @@ public class Person {
 
     public int getHp() {
         return hp;
+    }
+
+    public void decreaseHp(int damage) {
+        this.hp = Math.max(0, this.hp - damage);
     }
 
     public void setHp(int hp) {

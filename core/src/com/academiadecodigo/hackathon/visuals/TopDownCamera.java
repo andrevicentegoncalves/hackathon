@@ -46,6 +46,19 @@ public class TopDownCamera implements InputProcessor {
         }
         //Battle keys active
         if (isActiveBattle()) { //Key inputs for battle view go here.
+            if (keycode == Input.Keys.NUM_1) {
+                game.getBattleLogic().logicLoop(0);
+            }
+            if (keycode == Input.Keys.NUM_2) {
+                game.getBattleLogic().logicLoop(1);
+            }
+            if (keycode == Input.Keys.NUM_3) {
+                game.getBattleLogic().logicLoop(2);
+            }
+            if (keycode == Input.Keys.NUM_4) {
+                game.getBattleLogic().logicLoop(3);
+            }
+
             if (keycode == Input.Keys.X)
                 game.finishBattle();
 

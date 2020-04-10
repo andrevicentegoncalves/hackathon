@@ -70,10 +70,10 @@ public class Game extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(topDownCamera);
 
 		sb = new SpriteBatch();
-		player = new Texture(Gdx.files.internal("player.png"));
+		player = new Texture(Gdx.files.internal("player-right-2.png"));
 		sprite = new Sprite(player);
 
-		sprite.translate(320, 160);
+		sprite.translate(300, 160);
 		Coord playerPos = new Coord(10,5);
 
 		font = new BitmapFont();
@@ -81,7 +81,7 @@ public class Game extends ApplicationAdapter {
 
 		worldLogic = new WorldLogic(); //Summoned on walking around?
 		worldLogic.setPlayerPosition(playerPos);
-		battleLogic = new BattleLogic(new Battle(new Protagonist(), new JabberWeak())); //Summoned on combat
+		battleLogic = new BattleLogic(new Battle(new Protagonist(), new JabberWeak()) , this); //Summoned on combat
 
 		screenBattle = new BattleView(this, battleLogic, sb, font);
 		screenWorld = new GameView(this, worldLogic, camera,tiledMapRenderer,sprite,sb);
@@ -153,6 +153,9 @@ public class Game extends ApplicationAdapter {
 		topDownCamera.setActiveOverworld(true);
 		topDownCamera.setActiveBattle(false);
 
+		battleLogic.getScenario().getPlayer().setHp(35);
+		battleLogic.getScenario().setEnemy(JabberWeak.genWeakJabber());
+
 		swapLogic();
 		//Do the switch thing here
 		setScreen(screenWorld);
@@ -167,4 +170,11 @@ public class Game extends ApplicationAdapter {
 		runBattleLogic = !runBattleLogic;
 	}
 
+	public WorldLogic getWorldLogic() {
+		return worldLogic;
+	}
+
+	public BattleLogic getBattleLogic() {
+		return battleLogic;
+	}
 }

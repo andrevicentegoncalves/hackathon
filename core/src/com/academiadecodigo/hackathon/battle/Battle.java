@@ -24,20 +24,38 @@ public class Battle {
 
     public void resolveTurn() {
         if (player.isAlive()) {
-            enemy.setHp((int) Math.max(0,
-                    enemy.getHp() -
-                            Effectiveness.multiplier(TechType.effect(playerAttack.getTechType(),enemy.getFighterType()))*
-                                    (playerAttack.getPower() - (Math.floor(Utilities.roll(playerAttack.getPower()/3))) )) );
+            enemy.decreaseHp(
+                    playerAttack.getPower()
+            );
         }
         if (enemy.isAlive()) {
-            player.setHp((int) Math.max(0,
-                    enemy.getHp() -
-                            Effectiveness.multiplier(TechType.effect(enemyAttack.getTechType(),player.getFighterType()))*
-                                    (playerAttack.getPower() - (Math.floor(Utilities.roll(playerAttack.getPower()/4))) )) );
+            player.decreaseHp(
+                    enemyAttack.getPower()
+            );
             if (!player.isAlive()) defeat = true;
         }
         else victory = true;
     }
+
+    /*
+    public void resolveTurn() {
+        if (player.isAlive()) {
+            enemy.setHp((int) Math.max(0,
+                    enemy.getHp() -
+                            Math.ceil(Effectiveness.multiplier(TechType.effect(playerAttack.getTechType(),enemy.getFighterType()))*
+                                    (playerAttack.getPower() - (Math.floor(Utilities.roll(playerAttack.getPower()/3))) )) ));
+        }
+        if (enemy.isAlive()) {
+            player.setHp((int) Math.max(0,
+                    enemy.getHp() -
+                            Math.ceil(Effectiveness.multiplier(TechType.effect(enemyAttack.getTechType(),player.getFighterType()))*
+                                    (playerAttack.getPower() - (Math.floor(Utilities.roll(playerAttack.getPower()/4))) )) ));
+            if (!player.isAlive()) defeat = true;
+        }
+        else victory = true;
+    }
+
+     */
 
     public Person getPlayer() {
         return player;

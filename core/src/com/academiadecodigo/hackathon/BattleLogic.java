@@ -10,30 +10,32 @@ import java.util.Set;
 
 public class BattleLogic {
 
+    private Game game;
     private Battle scenario;
 
-    public BattleLogic(Battle scenario) {
+    public BattleLogic(Battle scenario, Game game) {
         this.scenario = scenario;
+        this.game = game;
     }
 
-    public void logicLoop() {
-        while (!scenario.isVictory() && !scenario.isDefeat()) {
-            promptPlayerForAttack();
+    public void logicLoop(int num) {
+        //while (scenario.isVictory() && !scenario.isDefeat()) {
+            promptPlayerForAttack(num);
             chooseEnemyAttack();
             scenario.resolveTurn();
-        }
+        //}
         if (scenario.isVictory()) {
             showVicotry();
         }
         else showDefeat();
     }
 
-    public void promptPlayerForAttack() {
-        //TODO!
+    public void promptPlayerForAttack(int num) {
+        scenario.setPlayerAttack(scenario.getPlayer().getMove(num));
     }
 
     public void chooseEnemyAttack() {
-        ArrayList<Tech> moves = scenario.getEnemy().getMoves();
+        ArrayList<Attack> moves = scenario.getEnemy().getMoves();
         int rand = Utilities.roll(moves.size()) - 1; //This is because roll goes from 1 to Max
         scenario.setEnemyAttack((Attack) moves.toArray()[rand]); //WARNING: cast an attack, decide if Tech should replace Attack or vice-versa.
     }
@@ -52,5 +54,9 @@ public class BattleLogic {
 
     public void setScenario(Battle scenario) {
         this.scenario = scenario;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
