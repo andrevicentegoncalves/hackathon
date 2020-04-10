@@ -26,6 +26,8 @@ public class TopDownCamera implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         //Overworld keys active
+        if(keycode == Input.Keys.ESCAPE) System.exit(1);
+
         if (isActiveOverworld()) { //Key inputs for walking in the gridworld here
             if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
                 camera.translate(-32, 0);
