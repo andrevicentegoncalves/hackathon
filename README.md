@@ -13,13 +13,13 @@ X -> Toggle Battle
 
 People involved:
 
-André Gonçalves (owner of repository!) ;
+André Gonçalves, https://github.com/andrevicentegoncalves, https://www.linkedin.com/in/andrevicentegoncalves/ ;
 
 António Morão, https://github.com/Zaimad, www.linkedin.com/in/antonio-morao-soulrender ;
 
-David "Chamas" Borges, https://www.linkedin.com/in/davidmsborges/ ;
+David Borges, https://github.com/DavidBorges-2, https://www.linkedin.com/in/davidmsborges/ ;
 
-Rui Santos, https://www.linkedin.com/in/ruipedrosantos/
+Rui Santos, https://github.com/ruipssantos, https://www.linkedin.com/in/ruipedrosantos/ ;
 
 
 We appreciate it if you apprecite this.
